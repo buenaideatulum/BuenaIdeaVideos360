@@ -88,58 +88,8 @@
       <h2>Galería de Videos 360</h2>
     </div>
 
-    <div class="videos">
-      <!-- Video 1 -->
-      <div class="video-card">
-        <video controls>
-          <source src="v1.mov" type="video/quicktime">
-          Tu navegador no reproduce este video. 
-          <a href="v1.mov" download>Descargar Video 1</a>
-        </video>
-        <a href="v1.mov" download class="download-btn">Descargar Video 1</a>
-      </div>
-
-      <!-- Video 2 -->
-      <div class="video-card">
-        <video controls>
-          <source src="v2.mov" type="video/quicktime">
-          Tu navegador no reproduce este video. 
-          <a href="v2.mov" download>Descargar Video 2</a>
-        </video>
-        <a href="v2.mov" download class="download-btn">Descargar Video 2</a>
-      </div>
-
-      <!-- Video 3 -->
-      <div class="video-card">
-        <video controls>
-          <source src="v3.mov" type="video/quicktime">
-          Tu navegador no reproduce este video. 
-          <a href="v3.mov" download>Descargar Video 3</a>
-        </video>
-        <a href="v3.mov" download class="download-btn">Descargar Video 3</a>
-      </div>
-
-      <!-- Video 4 -->
-      <div class="video-card">
-        <video controls>
-          <source src="v4.mov" type="video/quicktime">
-          Tu navegador no reproduce este video. 
-          <a href="v4.mov" download>Descargar Video 4</a>
-        </video>
-        <a href="v4.mov" download class="download-btn">Descargar Video 4</a>
-      </div>
-
-      <!-- Video 5 -->
-      <div class="video-card">
-        <video controls>
-          <source src="v5.mov" type="video/quicktime">
-          Tu navegador no reproduce este video. 
-          <a href="v5.mov" download>Descargar Video 5</a>
-        </video>
-        <a href="v5.mov" download class="download-btn">Descargar Video 5</a>
-      </div>
-
-      <!-- Agrega más videos como v6.mov, v7.mov, etc. -->
+    <div class="videos" id="videos-container">
+      <!-- Aquí se generarán los videos automáticamente -->
     </div>
   </div>
 
@@ -149,8 +99,44 @@
       if(input === "sonriesiempre") {
         document.getElementById("login").style.display = "none";
         document.getElementById("gallery").style.display = "block";
+        loadVideos();
       } else {
         alert("Clave incorrecta 😅 Intenta de nuevo.");
+      }
+    }
+
+    function loadVideos() {
+      const videosContainer = document.getElementById("videos-container");
+      const totalVideos = 18; // Cambia esto si tienes más videos
+      for(let i=1; i<=totalVideos; i++) {
+        const videoCard = document.createElement("div");
+        videoCard.className = "video-card";
+
+        const videoElement = document.createElement("video");
+        videoElement.controls = true;
+
+        // Si tienes un poster, descomenta y pon tu imagen
+        // videoElement.poster = `poster${i}.jpg`; 
+
+        const source = document.createElement("source");
+        source.src = `v${i}.mov`;
+        source.type = "video/quicktime";
+
+        videoElement.appendChild(source);
+
+        const fallback = document.createElement("p");
+        fallback.innerHTML = `Tu navegador no reproduce este video. <a href="v${i}.mov" download>Descargar Video ${i}</a>`;
+        videoElement.appendChild(fallback);
+
+        const downloadBtn = document.createElement("a");
+        downloadBtn.href = `v${i}.mov`;
+        downloadBtn.download = `v${i}.mov`;
+        downloadBtn.className = "download-btn";
+        downloadBtn.textContent = `Descargar Video ${i}`;
+
+        videoCard.appendChild(videoElement);
+        videoCard.appendChild(downloadBtn);
+        videosContainer.appendChild(videoCard);
       }
     }
   </script>
