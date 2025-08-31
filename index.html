@@ -3,97 +3,132 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Galería de Videos 360</title>
+  <title>Galería de Videos - Buena Idea</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
       text-align: center;
-      padding: 20px;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
-      color: #ffcc00;
-    }
-    .password-container, .gallery {
-      margin-top: 20px;
-    }
-    .video-container {
-      margin: 20px auto;
-      background: #222;
+
+    header {
+      background: black;
       padding: 15px;
-      border-radius: 10px;
-      width: 320px;
     }
+
+    header img {
+      height: 60px; /* Ajusta el tamaño del logo */
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    #passwordSection {
+      margin-top: 50px;
+    }
+
+    #gallery {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
     video {
       width: 100%;
-      border-radius: 8px;
+      border-radius: 12px;
     }
-    button {
+
+    .download-btn {
+      display: block;
       margin-top: 10px;
-      padding: 10px 15px;
-      border: none;
-      background: #ffcc00;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
+      padding: 10px;
+      background: black;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s;
     }
-    button:hover {
-      background: #ffaa00;
+
+    .download-btn:hover {
+      background: #444;
     }
   </style>
 </head>
 <body>
-  <h1>Galería de Videos 360</h1>
-  <p>Introduce la clave para acceder:</p>
 
-  <div class="password-container">
-    <input type="password" id="password" placeholder="Contraseña">
+  <!-- HEADER CON LOGO -->
+  <header>
+    <!-- AQUÍ VA EL LOGO -->
+    <img src="logo.png" alt="Logo Buena Idea">
+  </header>
+
+  <h1>Acceso a la galería de videos</h1>
+
+  <section id="passwordSection">
+    <p>Por favor, ingresa la contraseña para continuar:</p>
+    <input type="password" id="passwordInput" placeholder="Contraseña">
     <button onclick="checkPassword()">Entrar</button>
-  </div>
+    <p id="error" style="color: red; display: none;">Contraseña incorrecta</p>
+  </section>
 
-  <div class="gallery" style="display:none;">
-    <h2>Selecciona tu video</h2>
-    <div id="videos"></div>
-  </div>
+  <section id="gallery">
+    <h2>Selecciona tu video y descárgalo</h2>
+
+    <div class="video-card">
+      <video controls>
+        <source src="v1.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+      <a href="v1.mp4" download class="download-btn">Descargar Video 1</a>
+    </div>
+
+    <div class="video-card">
+      <video controls>
+        <source src="v2.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+      <a href="v2.mp4" download class="download-btn">Descargar Video 2</a>
+    </div>
+
+    <div class="video-card">
+      <video controls>
+        <source src="v3.mp4" type="video/mp4">
+        Tu navegador no soporta el video.
+      </video>
+      <a href="v3.mp4" download class="download-btn">Descargar Video 3</a>
+    </div>
+
+    <!-- Agrega más bloques como este para v4, v5, etc. -->
+
+  </section>
 
   <script>
-    const PASSWORD = "sonriesiempre";
-
     function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === PASSWORD) {
-        document.querySelector(".password-container").style.display = "none";
-        document.querySelector(".gallery").style.display = "block";
-        loadVideos();
+      const input = document.getElementById("passwordInput").value;
+      const errorMsg = document.getElementById("error");
+      if (input === "sonriesiempre") {
+        document.getElementById("passwordSection").style.display = "none";
+        document.getElementById("gallery").style.display = "grid";
       } else {
-        alert("Contraseña incorrecta 😅. Intenta de nuevo.");
+        errorMsg.style.display = "block";
       }
     }
-
-    function loadVideos() {
-      const videoContainer = document.getElementById("videos");
-
-      // Aquí definimos los videos que tienes en la carpeta
-      const videoList = ["v1.mp4", "v2.mp4", "v3.mp4", "v4.mp4"]; 
-
-      videoList.forEach(video => {
-        const div = document.createElement("div");
-        div.className = "video-container";
-
-        div.innerHTML = `
-          <video controls>
-            <source src="${video}" type="video/mp4">
-            Tu navegador no soporta videos.
-          </video>
-          <br>
-          <a href="${video}" download>
-            <button>Descargar</button>
-          </a>
-        `;
-        videoContainer.appendChild(div);
-      });
-    }
   </script>
+
 </body>
 </html>
