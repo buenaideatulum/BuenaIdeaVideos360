@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galería de Videos 360</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #ffcc00;
+    }
+    .password-container, .gallery {
+      margin-top: 20px;
+    }
+    .video-container {
+      margin: 20px auto;
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
+      width: 320px;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      border: none;
+      background: #ffcc00;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover {
+      background: #ffaa00;
+    }
+  </style>
+</head>
+<body>
+  <h1>Galería de Videos 360</h1>
+  <p>Introduce la clave para acceder:</p>
+
+  <div class="password-container">
+    <input type="password" id="password" placeholder="Contraseña">
+    <button onclick="checkPassword()">Entrar</button>
+  </div>
+
+  <div class="gallery" style="display:none;">
+    <h2>Selecciona tu video</h2>
+    <div id="videos"></div>
+  </div>
+
+  <script>
+    const PASSWORD = "sonriesiempre";
+
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === PASSWORD) {
+        document.querySelector(".password-container").style.display = "none";
+        document.querySelector(".gallery").style.display = "block";
+        loadVideos();
+      } else {
+        alert("Contraseña incorrecta 😅. Intenta de nuevo.");
+      }
+    }
+
+    function loadVideos() {
+      const videoContainer = document.getElementById("videos");
+
+      // Aquí definimos los videos que tienes en la carpeta
+      const videoList = ["v1.mp4", "v2.mp4", "v3.mp4", "v4.mp4"]; 
+
+      videoList.forEach(video => {
+        const div = document.createElement("div");
+        div.className = "video-container";
+
+        div.innerHTML = `
+          <video controls>
+            <source src="${video}" type="video/mp4">
+            Tu navegador no soporta videos.
+          </video>
+          <br>
+          <a href="${video}" download>
+            <button>Descargar</button>
+          </a>
+        `;
+        videoContainer.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
